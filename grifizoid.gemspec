@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name = "grifizoid"
-  s.version = "0.0.1"
+  s.version = "0.0.2"
   s.authors = "Paul Meserve"
   s.email = "dev@pogodan.com"
   s.homepage = "http://github.com/pogodan/grifizoid"

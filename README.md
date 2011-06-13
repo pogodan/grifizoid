@@ -14,22 +14,16 @@ It's sending a file handler not the raw data, so this should be low-memory use e
 and `bundle install`
 
 ## Use with Rails 3
-    
+
     # application.rb
-    
-    # /images/file.jpg => images/file.jpg
-    config.middleware.use Grifizoid
-    
-    # /file.jpg => #{site.to_param}/images/file.jpg
-    config.middleware.use Grifizoid do |req|
+    config.middleware.use Rack::GridFS do |req|
       site      = Site.where(:host => req.host).first
     
       File.join(site.to_param, req.path_info)
     end
-    
   
-Now someone going to [http://mydomain.com/file.jpg](http://mydomain.com/file.jpg) will result in the middleware doing a query to find the site `mydomain.com` (with an ID like `4d80c69f4cfad13cd100000c`) and then looks for a GridFS file named `4d80c69f4cfad13cd100000c/file.jpg`, sending it through to the client if found or else passing the request through to your app
+Now someone going to http://mydomain.com/file.jpg will result in the middleware doing a query to find the site 'mydomain.com' (with an ID like `4d80c69f4cfad13cd100000c`) and then looks for a GridFS file named `4d80c69f4cfad13cd100000c/file.jpg`, sending it through to the client if found or else passing the request through to your app
 
-Some ideas/code taken from:  
-* [https://github.com/dusty/rack_grid](https://github.com/dusty/rack_grid)  
-* [https://github.com/skinandbones/rack-gridfs](https://github.com/skinandbones/rack-gridfs)
+Some ideas/code taken from:
+  https://github.com/dusty/rack_grid
+  https://github.com/skinandbones/rack-gridfs
