@@ -12,11 +12,11 @@ class Grifizoid
       etag, last_modified = file.instance_variable_get(:@md5), Time.at( file.upload_date.to_i )
       
       headers = {
-        'ETag' => "\"#{etag}\"",
+        'ETag'          => "\"#{etag}\"",
         'Last-Modified' => last_modified.httpdate,
       }
       if not_modified?(env, etag, last_modified )
-        [304, headers, 'Not Modified']
+        [304, headers, ['Not Modified']]
       else
         [200, headers.merge('Content-Type' => file.content_type, 'Content-Length' => file.file_length.to_s), file]
       end
